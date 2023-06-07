@@ -68,6 +68,7 @@ class Game:
     def update_balls(self):
 
         highest = pygame.display.get_surface().get_rect().height*0.1
+        dumping = 0.00001
         for ball in self.balls:
             if ball.start_time > self.time:
                 continue
@@ -77,7 +78,10 @@ class Game:
                 ball.v *= -1
                 ball.sound.play(maxtime=1000)
 
-            ball.v += ball.g*self.delta
+            v = math.fabs(ball.v)
+            v = pow(v, 1 - dumping)
+            v = v if ball.v >= 0 else -v;
+            ball.v = v + ball.g*self.delta
             ball.y += ball.v*self.delta
 
     def draw_balls(self):
