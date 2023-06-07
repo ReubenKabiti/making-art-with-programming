@@ -72,13 +72,10 @@ class Game:
             if ball.start_time > self.time:
                 continue
             h = pygame.display.get_surface().get_rect().height
-            if ball.y >= h - ball.r:
+            if ball.y > h - ball.r:
                 ball.y = h - ball.r
-                ball.v = -math.fabs(ball.v)
+                ball.v *= -1
                 ball.sound.play(maxtime=1000)
-            elif ball.y <= highest:
-                ball.y = highest
-                ball.v = math.fabs(ball.v)
 
             ball.v += ball.g*self.delta
             ball.y += ball.v*self.delta
